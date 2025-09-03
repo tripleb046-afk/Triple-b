@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Triple B Family Restaurant</title>
+  <style>
+    :root {
+      --primary: #facc15;
+      --primary-dark: #eab308;
+      --accent: #b45309;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #111827;
+    }
+
+    /* ===== Navbar ===== */
+    header {
+      background: #fef9c3;
+      border-bottom: 1px solid #fde68a;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      color: var(--accent);
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      gap: 16px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.3s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* Mobile nav */
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: #fef9c3;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        display: none;
+      }
+      nav.show { display: flex; }
+      .menu-toggle { display: block; }
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 0 20px;
+    }
+    .hero h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 5vw, 44px);
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: clamp(15px, 3.5vw, 18px);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: #111;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+    .btn:hover { background: var(--primary-dark); }
+
+    /* ===== Sections ===== */
+    section {
+      padding: 60px 20px;
+    }
+    section h2 {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    section h2 span {
+      display: block;
+      color: var(--accent);
+      font-size: 18px;
+      margin-top: 5px;
+    }
+    section p.section-desc {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      color: #555;
+      font-size: 15px;
+    }
+
+    /* ===== Grid (Menu + Facilities) ===== */
+    .categories, .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .category-card, .facility-card {
+      background: white;
+      border: 1px solid #fef3c7;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s forwards;
+    }
+    .category-card:hover, .facility-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: var(--primary);
+      box-shadow: 0 8px 18px rgba(250, 204, 21, 0.3);
+    }
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fef9c3, #fde68a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .category-title, .facility-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      padding: 4px 10px;
+      background: #fef9c3;
+      border: 1px solid #fde68a;
+      border-radius: 999px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .facility-desc {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: #fef9c3;
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #fde68a;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <h1>🍴 Triple B</h1>
+    <button class="menu-toggle">☰</button>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#facilities">Facilities</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Welcome to Triple B Family Restaurant</h2>
+      <p>Enjoy premium dining with delicious flavors, crafted with love, and served in a warm family-friendly environment.</p>
+      <a href="#menu" class="btn">Explore Menu</a>
+    </div>
+  </section>
+
+  <!-- Menu Categories -->
+  <!-- Menu Categories -->
+<section id="menu">
+  <h2>Our Specialties <span>Menu Categories</span></h2>
+  <p class="section-desc">Choose from a variety of freshly prepared dishes across multiple categories.</p>
+  <style>.categories a {
+  text-decoration: none;   /* remove underline */
+  color: inherit;          /* keep same text color */
+  display: block;          /* make whole card clickable */
+}
+.categories a:hover {
+  color: inherit;          /* prevent turning blue on hover */
+}
+</style>
+
+  <div class="categories">
+    <a href="index1.html" class="category-card">
+      <div class="icon-box">🥬</div>
+      <div class="category-title">Veg & Dal Corner</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Pulao.html" class="category-card">
+      <div class="icon-box">🍚</div>
+      <div class="category-title">Pulao</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Raita,Salad.html" class="category-card">
+      <div class="icon-box">🥗</div>
+      <div class="category-title">Raita / Salad</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Non Vegetarian.html" class="category-card">
+      <div class="icon-box">🍗</div>
+      <div class="category-title">Non Vegetarian</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Desert.html" class="category-card">
+      <div class="icon-box">🍨</div>
+      <div class="category-title">Dessert</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Triple 'B' Veg Thali.html" class="category-card">
+      <div class="icon-box">🍱</div>
+      <div class="category-title">Triple B Veg Thalis</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Triple 'B' Special Veg Thali.html" class="category-card">
+      <div class="icon-box">🥘</div>
+      <div class="category-title">Triple B Special Veg Thalis</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Triple 'B' Non Veg Thali.html" class="category-card">
+      <div class="icon-box">🍖</div>
+      <div class="category-title">Triple B Non Veg Thalis</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Non Veg Chinese Platter.html" class="category-card">
+      <div class="icon-box">🥡</div>
+      <div class="category-title">Non Veg Chinese Platter</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Roti corner.html" class="category-card">
+      <div class="icon-box">🥯</div>
+      <div class="category-title">Roti Corner</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Non Vegetarian Gravy Corner.html" class="category-card">
+      <div class="icon-box">🍛</div>
+      <div class="category-title">Non Veg Gravy Corner</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+
+    <a href="Mutton corner.html" class="category-card">
+      <div class="icon-box">🐐</div>
+      <div class="category-title">Mutton Corner</div>
+      <div class="badge">⭐ Premium</div>
+    </a>
+  </div>
+  
+
+</section>
+
+
+  <!-- Facilities -->
+  <section id="facilities">
+    <h2>आपके लिए सुविधाएँ <span>Premium Facilities</span></h2>
+    <p class="section-desc">We provide exceptional facilities to ensure your dining experience is comfortable and memorable.</p>
+
+    <div class="facilities-grid">
+      <div class="facility-card"><div class="icon-box">❄️</div><div class="facility-title">Air Conditioned</div><div class="facility-desc">Comfortable dining in all seasons</div></div>
+      <div class="facility-card"><div class="icon-box">🚗</div><div class="facility-title">Free Parking</div><div class="facility-desc">Convenient parking space available</div></div>
+      <div class="facility-card"><div class="icon-box">📶</div><div class="facility-title">Free Wi-Fi</div><div class="facility-desc">Stay connected while you dine</div></div>
+      <div class="facility-card"><div class="icon-box">👨‍👩‍👧‍👦</div><div class="facility-title">Family Friendly</div><div class="facility-desc">Perfect atmosphere for families</div></div>
+      <div class="facility-card"><div class="icon-box">🛡️</div><div class="facility-title">Hygienic Kitchen</div><div class="facility-desc">Maintained to highest standards</div></div>
+      <div class="facility-card"><div class="icon-box">💧</div><div class="facility-title">BLUW Water</div><div class="facility-desc">Premium packaged drinking water</div></div>
+      <div class="facility-card"><div class="icon-box">❤️</div><div class="facility-title">Made with Love</div><div class="facility-desc">Every dish crafted with care</div></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>📍 Triple B Family Restaurant • Near City Center • Open 10AM - 11PM</p>
+    <p>☎️ Contact: +91-9876543210 | © 2025 Triple B</p>
+  </footer>
+
+  <script>
+    
+    // Mobile nav toggle
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+      document.querySelector("nav").classList.toggle("show");
+    });
+
+    // Stagger fade animations
+    document.querySelectorAll('.category-card, .facility-card').forEach((card, i) => {
+      card.style.animationDelay = (i * 0.1) + "s";
+    });
+    
+  </script>
+</body>
+</html>

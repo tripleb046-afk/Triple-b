@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Veg & Dal Corner • Premium Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --yellow: #ffd54f;
+      --yellow-deep: #f6b900;
+      --ink: #1c1c1c;
+      --muted: #696969;
+      --bg: #fffaf0;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -20%, rgba(255,227,130,0.6), transparent 60%),
+        radial-gradient(800px 400px at 120% 10%, rgba(255,213,79,0.35), transparent 40%),
+        var(--bg);
+      color: var(--ink);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header {
+      background: linear-gradient(135deg, #fff3bf, var(--yellow));
+      padding: 18px 22px;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(246,185,0,0.25);
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin: 0;
+      color: var(--ink);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .dish {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .dish:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(246,185,0,0.25);
+    }
+    .dish h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      font-size: 20px;
+    }
+    .price {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--yellow-deep);
+    }
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Veg & Dal Corner</h1>
+    </header>
+    <div class="menu-grid">
+      <div class="dish"><h3>Dal Makhni</h3><div class="price">₹190/-</div></div>
+      <div class="dish"><h3>Gobhi Masala</h3><div class="price">₹200/-</div></div>
+      <div class="dish"><h3>Aloo Gobhi</h3><div class="price">₹200/-</div></div>
+      <div class="dish"><h3>Mix Veg</h3><div class="price">₹200/-</div></div>
+      <div class="dish"><h3>Dal Tadka</h3><div class="price">₹180/-</div></div>
+      <div class="dish"><h3>Aloo Mutter</h3><div class="price">₹180/-</div></div>
+      <div class="dish"><h3>Methi Malai Mutter</h3><div class="price">₹250/-</div></div>
+    </div>
+    <footer>© <span id="year"></span> Premium Menu</footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
